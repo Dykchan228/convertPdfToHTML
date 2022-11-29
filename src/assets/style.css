@@ -1,0 +1,22 @@
+.main {
+    position: relative;
+    display: flex;
+    justify-content: center;
+}
+
+.page-content {
+    display: flex;
+    margin-bottom: 100px;
+}
+
+form.group-form {
+    width: 100%;
+    position:relative;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+
+.field-set {
+    margin: 10px;
+}

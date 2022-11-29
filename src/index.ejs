@@ -1,0 +1,66 @@
+<div class="generated-html-from-pdf container">
+    <div class="header">
+        <h1>Awesome HTML from PDF</h1>
+    </div>
+    <div class="main container">
+        <% 
+            let page_pos = 0;
+        %>
+        <% data.map((page, i) => { %>
+            <div class="page-content row"style="position: absolute; top:<%= page_pos%>px; width:<%= page.info.width%>px; height:<%= page.info.height%>px; background-size: contain; background-image: url(<%= backImgs[i]%>)">
+                <% page_pos += page.info.height %>
+                <form action="#" class="group-form">
+                <% page.content.map((field) => { %>
+                    <% if (field.field_type == 'text_field') { %>
+                        <div class="field-set"style="position: absolute; top:<%=page.info.height-field.coordinates[0].y%>px; left:<%=field.coordinates[0].x%>px; ">
+                            <!-- <span><%= field.field_name %></span> -->
+                            <input type="text" name="<%= `${field.field_name}` %>" style=" width:<%=field.coordinates[0].width%>px; height:<%=field.coordinates[0].height%>px;">
+                        </div>
+                    <% } %>
+                    <% if (field.field_type == 'radiogroup_field') { %>
+                        <div class="field-set">
+                            <div class="radiogroup">
+                                <% field.options.map((option, i) => { %>
+                                    <div style="position: absolute;  top:<%=page.info.height-field.coordinates[i].y%>px; left:<%=field.coordinates[i].x%>px; ">
+                                        <input type="radio" name="<%= `${field.field_name}` %>" value="<%= `${option}` %>" id="<%= `${field.field_name}-${i}` %>" <%= field.selected == option ? "selected" : "" %> style="width:<%=field.coordinates[i].width%>px; height:<%=field.coordinates[i].height%>px;" >
+                                        <!-- <label for="<%= `${field.field_name}-${i}` %>" ><%= option %></label><br> -->
+                                    </div>
+                                <% }) %>
+                            </div>
+                        </div>
+                    <% } %>
+                    <% if (field.field_type == 'dropdown_field') { %>
+                        <div class="field-set"style="position: absolute; top:<%=page.info.height-field.coordinates[0].y%>px; left:<%=field.coordinates[0].x%>px; ">
+                            <!-- <span><%= field.field_name %></span> -->
+                            <select type="radio" name="<%= `${field.field_name}` %>" style="width:<%= field.coordinates[0].width%>px; height:<%= field.coordinates[0].height%>px;" >
+                                <% field.options.map((option, i) => { %>
+                                    <option value="<%= `${option}` %>" id="<%= `${field.field_name}-${i}` %>" <%= field.selected.indexOf(option) >= 0 ? "selected" : "" %> > <%= option %> </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                    <% } %>
+                    <% if (field.field_type == 'checkbox_field') { %>
+                        <div class="field-set"style="position: absolute; top:<%=page.info.height-field.coordinates[0].y%>px; left:<%=field.coordinates[0].x%>px; ">
+                            <!-- <span><%= field.field_name %></span> -->
+                            <input type="checkbox" name="<%= `${field.field_name}` %>" <%= field.isChecked ? "checked" : "" %> style="width:<%=field.coordinates[0].width%>px; height:<%=field.coordinates[0].height%>px; ">
+                        </div>
+                        
+                    <% } %>
+                    <% if (field.field_type == 'optionlist_field') { %>
+                        <div class="field-set"style="position: absolute; top:<%=page.info.height-field.coordinates[0].y%>px; left:<%=field.coordinates[0].x%>px; ">
+                            <!-- <span><%= field.field_name %></span> -->
+                            <select size=<%= field.options.length %> name="<%= `${field.field_name}` %>" style="width:<%=field.coordinates[0].width%>px; height:<%=field.coordinates[0].height%>px;" >
+                                <% field.options.map((option, i) => { %>
+                                    <option value="<%= `${option}` %>" id="<%= `${field.field_name}-${i}` %>" <%= field.selected.indexOf(option) >= 0 ? "selected" : "" %> > <%= option %> </option>
+                                <% }) %>
+                            </select>
+                        </div>
+                        
+                    <% } %>
+                <% }) %>
+                </form>
+            </div>
+        <% }); %>
+    </div>
+    
+</div>
