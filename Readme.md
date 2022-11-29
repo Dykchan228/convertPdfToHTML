@@ -3,6 +3,7 @@
 </h1>
 
 <h4>How to install</h4>
+
 ```
 npm install
 ```
